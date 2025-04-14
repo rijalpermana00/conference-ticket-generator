@@ -1,0 +1,44 @@
+.contents p {
+	@apply mt-0 mb-5;
+}
+
+@font-face {
+    font-family: "Inconsolata";
+    src: url("/assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf");
+}
+
+html {
+	// font-family:  Arial, Helvetica, sans-serif
+	font-family:  "Inconsolata", sans-serif
+	// @apply bg-gray-200
+}
+
+@layer base {
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+}
+
+.scrollbar-thin {
+	/* Apply styles to the whole scrollbar */
+	::-webkit-scrollbar {
+		width: 1px; // width of the scrollbar
+		height: 1px; // height of the scrollbar (for horizontal scrollbar)
+	}
+
+	/* Apply styles to the scrollbar track */
+	::-webkit-scrollbar-track {
+		border-radius: 1px; // optional: to make rounded corners
+	}
+
+	/* Apply styles to the scrollbar thumb */
+	::-webkit-scrollbar-thumb {
+		border-radius: 1px; // optional: to make rounded corners
+	}
+}
+
+.text-primary {
+	color: "text-red-200";
+}

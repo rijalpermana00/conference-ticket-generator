@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind utilities;
+
+@layer base {
+	@import "base";
+}
+
+@layer utilities {
+}
