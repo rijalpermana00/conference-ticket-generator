@@ -110,9 +110,9 @@ const Form: React.FC<FormProps> = ({
 					<span
 						className={`${errors.avatar ? "text-red-500" : "text-neutral-500"} text-sm flex gap-2`}
 					>
-						<Info size={"1rem"} />
-						{errors.avatar ??
-							"Upload your photo (JPG or PNG, max size: 500Kb)."}
+						{errors.avatar
+							? <Info size={"1rem"} /> + errors.avatar
+							: "Upload your photo (JPG or PNG, max size: 500Kb)."}
 					</span>
 				</div>
 				<div className="flex flex-col gap-2">
