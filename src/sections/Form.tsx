@@ -1,48 +1,32 @@
 "use client"
 import { Info } from "lucide-react"
 import Image from "next/image"
-import React, { useState } from "react"
+import React from "react"
 
-interface FormData {
+type FormData = {
 	fullName: string
 	email: string
 	githubUsername: string
-	avatar: File | null
+	avatar: string
 }
 
-const Form: React.FC = () => {
-	const [formData, setFormData] = useState<FormData>({
-		fullName: "",
-		email: "",
-		githubUsername: "",
-		avatar: null,
-	})
-
-	const handleChange = (
+interface FormProps {
+	formData: FormData
+	errors: Partial<Record<keyof FormData, string>>
+	handleChange: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => {
-		const { name, value } = e.target
-		setFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}))
-	}
+	) => void
+	handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+	handleSubmit: (e: React.FormEvent) => void
+}
 
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files && e.target.files.length > 0) {
-			setFormData((prev) => ({
-				...prev,
-				avatar: e.target.files![0],
-			}))
-		}
-	}
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault()
-		// Handle form submission logic here
-		console.log("Form submitted:", formData)
-	}
-
+const Form: React.FC<FormProps> = ({
+	formData,
+	errors,
+	handleChange,
+	handleFileChange,
+	handleSubmit,
+}) => {
 	return (
 		<div className="w-full max-w-md mx-auto">
 			<div className="flex flex-col gap-6">
@@ -51,9 +35,9 @@ const Form: React.FC = () => {
 						Upload Avatar
 					</label>
 					<div
-						onClick={() =>
+						onClick={() => {
 							document.getElementById("hidden-input")?.click()
-						}
+						}}
 						className="relative border-dashed border rounded-xl border-gray-400  py-4 bg-white/10 flex flex-col justify-center items-center gap-4 cursor-pointer"
 					>
 						<button
@@ -62,8 +46,8 @@ const Form: React.FC = () => {
 						>
 							{formData.avatar ? (
 								<Image
-									className="rounded-xl"
-									src={URL.createObjectURL(formData.avatar)}
+									className="rounded-xl max-w-[55px] max-h-[55px] min-w-[55px] min-h-[55px] object-fill"
+									src={formData.avatar}
 									alt="Chosen avatar"
 									width={55}
 									height={55}
@@ -83,12 +67,22 @@ const Form: React.FC = () => {
 									className="p-1 text-xs rounded-md bg-neutral-50/10 hover:text-red-200"
 									id="changeImage"
 									type="button"
-									onClick={() =>
-										setFormData((prev) => ({
-											...prev,
-											avatar: null,
-										}))
-									}
+									onClick={(e) => {
+										e.stopPropagation()
+										handleChange({
+											target: {
+												name: "avatar",
+												value: "",
+											},
+										} as React.ChangeEvent<HTMLInputElement>)
+										const fileInput =
+											document.getElementById(
+												"hidden-input"
+											) as HTMLInputElement
+										if (fileInput) {
+											fileInput.value = ""
+										}
+									}}
 								>
 									Remove Image
 								</button>
@@ -113,10 +107,13 @@ const Form: React.FC = () => {
 							className="hidden"
 						/>
 					</div>
-					<div className="flex items-center gap-2 text-xs text-neutral-500">
+					<span
+						className={`${errors.avatar ? "text-red-500" : "text-neutral-500"} text-sm flex gap-2`}
+					>
 						<Info size={"1rem"} />
-						Upload your photo (JPG or PNG, max size: 500Kb).
-					</div>
+						{errors.avatar ??
+							"Upload your photo (JPG or PNG, max size: 500Kb)."}
+					</span>
 				</div>
 				<div className="flex flex-col gap-2">
 					<label className="block text-xl text-neutral-300">
@@ -129,6 +126,11 @@ const Form: React.FC = () => {
 						value={formData.fullName}
 						onChange={handleChange}
 					/>
+					{errors.fullName && (
+						<span className="text-red-500 text-sm">
+							{errors.fullName}
+						</span>
+					)}
 				</div>
 				<div className="flex flex-col gap-2">
 					<label className="block text-xl text-neutral-300">
@@ -142,6 +144,12 @@ const Form: React.FC = () => {
 						value={formData.email}
 						onChange={handleChange}
 					/>
+					{errors.email && (
+						<span className="text-red-500 text-sm flex gap-2">
+							<Info size={"1rem"} />
+							{errors.email}
+						</span>
+					)}
 				</div>
 				<div className="flex flex-col gap-2">
 					<label className="block text-xl text-neutral-300">
@@ -155,6 +163,11 @@ const Form: React.FC = () => {
 						value={formData.githubUsername}
 						onChange={handleChange}
 					/>
+					{errors.githubUsername && (
+						<span className="text-red-500 text-sm">
+							{errors.githubUsername}
+						</span>
+					)}
 				</div>
 				<button
 					className="h-12 w-full rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all"
