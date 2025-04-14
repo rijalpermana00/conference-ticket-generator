@@ -8,9 +8,7 @@ interface LabelInterface {
 export function LabelWrapper({ children, color }: LabelInterface) {
 	return (
 		<div className={`mb-2 block`}>
-			<Label color={color}>
-                {children}
-            </Label>
+			<Label color={color}>{children}</Label>
 		</div>
 	)
 }

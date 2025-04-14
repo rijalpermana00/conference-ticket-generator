@@ -24,7 +24,7 @@ export interface InputInterface extends InputHTMLAttributes<HTMLInputElement> {
 	ref?: React.Ref<HTMLInputElement>
 	children?: React.ReactNode
 	helperText?: React.ReactNode
-    customHeight?: string
+	customHeight?: string
 	color?: keyof StyleType["color"]
 	cursor?: React.CSSProperties["cursor"]
 }

@@ -1,12 +1,12 @@
 type LabelStyleType = {
 	color: {
-		default: string;
-		info: string;
-		danger: string;
-		warning: string;
-		success: string;
-	};
-};
+		default: string
+		info: string
+		danger: string
+		warning: string
+		success: string
+	}
+}
 
 export const LabelStyle: LabelStyleType = {
 	color: {

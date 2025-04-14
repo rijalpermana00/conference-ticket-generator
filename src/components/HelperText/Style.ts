@@ -1,12 +1,12 @@
 export interface StyleType {
 	color: {
-		gray: string;
-		info: string;
-		success: string;
-		danger: string;
-		warning: string;
-		default: string;
-	};
+		gray: string
+		info: string
+		success: string
+		danger: string
+		warning: string
+		default: string
+	}
 }
 
 export const Style: StyleType = {

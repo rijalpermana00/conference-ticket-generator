@@ -20,7 +20,9 @@ export default function TextArea({
 		: styleInput.color.default
 
 	return (
-		<div className={clsx(customStyle ? "content-center w-full md:ms-4" : "")}>
+		<div
+			className={clsx(customStyle ? "content-center w-full md:ms-4" : "")}
+		>
 			<textarea
 				className={clsx(
 					colorClass,

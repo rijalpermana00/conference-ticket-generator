@@ -12,7 +12,9 @@ export function InlineRadio({
 	readonly,
 }: RadioInterface) {
 	return (
-		<div className={`${customStyle ? "content-center w-full md:ms-4" : ""}`}>
+		<div
+			className={`${customStyle ? "content-center w-full md:ms-4" : ""}`}
+		>
 			<div className="flex">
 				{options?.map((option) => (
 					<div className="flex items-center me-4" key={option.value}>
