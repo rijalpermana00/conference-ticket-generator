@@ -91,7 +91,7 @@ export default function Home() {
 		e.preventDefault()
 
 		// Create a copy of current errors to work with
-		let currentErrors: Partial<Record<keyof FormData, string>> = {
+		const currentErrors: Partial<Record<keyof FormData, string>> = {
 			...errors,
 		}
 		let hasErrors = false
