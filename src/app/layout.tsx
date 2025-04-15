@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import "@/styles/globals.scss"
 import Image from "next/image"
 import { Navbar } from "@/sections/Navbar"
+import { useEffect, useState } from "react"
+import Inside from "./inside"
 
 export const metadata: Metadata = {
 	title: "Conference Ticket Generator",
@@ -20,7 +22,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`relative`}>
-				<div>
+				{/* <div>
 					<Image
 						src="/assets/images/background-desktop.png"
 						alt="Lines Pattern"
@@ -70,6 +72,17 @@ export default function RootLayout({
 						<div className="p-4">
 							<Navbar />
 							<div className="w-full my-4 px-4 mx-auto">
+								{children}
+							</div>
+						</div>
+					</main>
+				</div> */}
+				<Inside />
+				<div className="flex flex-col min-h-screen">
+					<main className="flex-grow relative">
+						<div className="p-4">
+							<Navbar />
+							<div className="w-full desktop:my-4 desktop:px-4 my-10 px-1 mx-auto">
 								{children}
 							</div>
 						</div>

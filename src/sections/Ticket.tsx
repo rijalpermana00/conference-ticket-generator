@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Image from "next/image"
 
 const Ticket = ({
@@ -13,6 +13,24 @@ const Ticket = ({
 	githubUsername: string
 	avatar: string
 }) => {
+	const [screenSize, setScreenSize] = useState({
+		width: 0,
+		height: 0,
+	})
+
+	useEffect(() => {
+		function handleResize() {
+			setScreenSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			})
+		}
+
+		handleResize()
+		window.addEventListener("resize", handleResize)
+		return () => window.removeEventListener("resize", handleResize)
+	}, [])
+
 	return (
 		<>
 			<div className="flex flex-col gap-5 text-neutral-200 font-semibold text-center">
@@ -35,32 +53,44 @@ const Ticket = ({
 					</p>
 				</div>
 			</div>
-			<div className="relative flex flex-col items-center justify-center w-[500px] max-w-7xl mx-auto">
-				<Image
-					src="/assets/images/pattern-ticket.svg"
-					alt="circle Pattern"
-					width={500}
-					height={400}
-					className=""
-				/>
-				<div className="absolute p-5 pr-2 top-0 left-0 flex flex-row justify-between gap-3 w-full h-full">
+			<div className="relative flex flex-col items-center justify-center desktop:w-[500px] w-[350px] max-w-7xl mx-auto">
+				{screenSize.width > 1440 ? (
+					<Image
+						src="/assets/images/pattern-ticket.svg"
+						alt="circle Pattern"
+						width={500}
+						height={400}
+						className=""
+					/>
+				) : (
+					<Image
+						src="/assets/images/pattern-ticket.svg"
+						alt="circle Pattern"
+						width={350}
+						height={400}
+						className=""
+					/>
+				)}
+				<div className="absolute p-5 desktop:pr-2 pr-0 top-0 left-0 flex flex-row justify-between gap-3 w-full h-full">
 					<div className="flex flex-col justify-between">
-						<div className="flex flex-col">
-							<div className="flex flex-row gap-4">
+						<div className="flex flex-row mobile:gap-3">
+							<div className="flex flex-col gap-4 mobile:pt-1">
 								<Image
 									src="/assets/images/logo-mark.svg"
 									alt="Logo"
 									width={40}
 									height={40}
-									className="top-0 left-0 items-center"
+									className="top-0 left-0 mobile:max-w-[30px] items-center"
 								/>
-								<h1 className="text-neutral-100 text-3xl font-semibold">
+							</div>
+							<div className="flex flex-col desktop:gap-4 gap-1">
+								<h1 className="text-neutral-100 desktop:text-3xl text-xl font-semibold">
 									Coding Conf
 								</h1>
+								<p className="text-neutral-400 mobile:text-xs">
+									Jan 31, 2025 / Austin, TX
+								</p>
 							</div>
-							<p className="text-neutral-400 ml-14">
-								Jan 31, 2025 / Austin, TX
-							</p>
 						</div>
 						<div className="flex flex-row gap-4">
 							<Image
@@ -68,21 +98,21 @@ const Ticket = ({
 								alt="Avatar"
 								width={70}
 								height={70}
-								className="rounded-xl max-w-[70px] max-h-[70px] min-w-[70px] min-h-[70px] object-fill"
+								className="desktop:rounded-xl rounded-lg desktop:max-w-[70px] max-w-[50px] desktop:max-h-[70px] max-h-[50px] desktop:min-w-[70px] min-w-[50px] desktop:min-h-[70px] min-h-[50px] object-fill"
 							/>
 							<div className="flex flex-col">
 								<p className="text-neutral-200 text-xl">
 									{name}
 								</p>
-								<div className="flex flex-row gap-2">
+								<div className="flex flex-row desktop:gap-2 gap-1">
 									<Image
 										src="/assets/images/icon-github.svg"
 										alt="Avatar"
 										width={20}
 										height={20}
-										className="rounded-lg"
+										className="rounded-lg mobile:max-w-[15px]"
 									/>
-									<p className="text-neutral-400">
+									<p className="text-neutral-400 mobile:text-xs">
 										{githubUsername}
 									</p>
 								</div>
