@@ -2,7 +2,6 @@
 import type { Metadata } from "next"
 import "@/styles/globals.scss"
 import Image from "next/image"
-import { Navbar } from "@/sections/Navbar"
 import { useEffect, useState } from "react"
 
 export const metadata: Metadata = {
